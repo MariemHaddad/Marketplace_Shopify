@@ -17,8 +17,8 @@ public class Adresse implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="adreese1")
     private String adresse1;
-    @Column(name="adreese2")
-    private String adresse2;
+  //  @Column(name="adreese2")
+   // private String adresse2;
     @Column(name="ville")
     private String ville;
     @Column(name="codePostale")
