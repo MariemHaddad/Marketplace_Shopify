@@ -20,10 +20,7 @@ public class FactureServiceImpl implements IFactureService{
         return null;
     }
 
-    @Override
-    public void saveFacture(Facture facture) {
 
-    }
 
     @Override
     public void updateFacture(Facture facture) {
@@ -31,9 +28,17 @@ public class FactureServiceImpl implements IFactureService{
     }
 
     @Override
-    public void deleteFacture(Long id) {
+    public void deleteFacture(Facture f) {
+        factureRepository.delete(f);
+    }
+
+    @Override
+    public void deleteFactureById(Long idFacture) {
+        factureRepository.deleteById(idFacture);
 
     }
+
+
 
     @Override
     public Facture addFacture(Facture facture) {
