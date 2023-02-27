@@ -8,9 +8,9 @@ import java.util.Set;
 @Entity
 public class Order {
     private static final long serialVersionUID = 1L;
-
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+
     private Long idOrder;
     @Temporal(TemporalType.DATE)
     private Date dateOrder;
