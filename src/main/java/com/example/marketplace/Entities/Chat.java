@@ -15,9 +15,7 @@ public class Chat {
     private Date sentAt;
     private Date readAt;
 
-    @OneToMany(mappedBy = "chat")
-    @JsonIgnore
-    private Set<User> recievers;
+
     @ManyToOne
     @JsonIgnore
     private User sender;

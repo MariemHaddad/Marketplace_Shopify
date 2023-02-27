@@ -26,7 +26,9 @@ public class User {
     @OneToMany(mappedBy ="receiver")
     @JsonIgnore
     private List<Chat>receivedMessage;
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Produit> produits;
 //test
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="user")

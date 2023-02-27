@@ -22,9 +22,11 @@ public class Produit {
     private String nomProduit;
     private Float prixProduit;
     private Date dateCreation;
+    private String photoProduit;
     @ManyToOne
     private Categorie categorie;
-
+    @ManyToOne
+    private User user;
     @OneToMany (mappedBy = "productlike" ,cascade = CascadeType.ALL)
     private List<Productlike> Likes;
 
