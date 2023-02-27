@@ -1,4 +1,7 @@
 package com.example.marketplace.Repositories;
 
-public interface ChatRepository {
+import com.example.marketplace.Entities.Chat;
+import org.springframework.data.repository.CrudRepository;
+
+public interface ChatRepository extends CrudRepository<Chat,Long> {
 }

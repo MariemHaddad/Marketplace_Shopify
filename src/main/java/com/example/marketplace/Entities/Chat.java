@@ -1,13 +1,22 @@
 package com.example.marketplace.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+
 
 @Entity
-public class Chat {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Chat implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idChat;
@@ -15,9 +24,6 @@ public class Chat {
     private Date sentAt;
     private Date readAt;
 
-    @OneToMany(mappedBy = "chat")
-    @JsonIgnore
-    private Set<User> recievers;
     @ManyToOne
     @JsonIgnore
     private User sender;

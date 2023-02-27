@@ -1,4 +1,9 @@
 package com.example.marketplace.Repositories;
 
-public interface ProductCommentRepository {
+import com.example.marketplace.Entities.ProductComment;
+import org.springframework.data.repository.CrudRepository;
+
+public interface ProductCommentRepository extends CrudRepository<ProductComment,Long> {
+
+
 }
