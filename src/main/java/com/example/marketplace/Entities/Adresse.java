@@ -12,7 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Adresse implements Serializable {
-    @Id
+
+  //test
+  @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="adreese1")
     private String adresse1;
