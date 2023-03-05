@@ -1,7 +1,9 @@
 package com.example.marketplace.Services;
 
+import com.example.marketplace.Entities.Boutique;
 import com.example.marketplace.Entities.Categorie;
 import com.example.marketplace.Entities.Produit;
+import com.example.marketplace.Repositories.BoutiqueRepository;
 import com.example.marketplace.Repositories.CategorieRepository;
 import com.example.marketplace.Repositories.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,21 @@ public class ProduitServiceImpl implements ProduitService{
     ProduitRepository produitRepository;
     @Autowired
     CategorieRepository categorieRepository;
+    @Autowired
+    BoutiqueRepository boutiqueRepository;
     @Override
     public void affectprodtocat(Produit produit,Long idCategorie) {
         Categorie categorie = categorieRepository.findById(idCategorie).orElse(null);
         produit.setCategorie(categorie);
 
         produitRepository.save(produit);
+    }
+    @Override
+    public void affectcattobou(Categorie categorie,Long idbou) {
+        Boutique boutique = boutiqueRepository.findById(idbou).orElse(null);
+        categorie.setBoutique(boutique);
+
+        categorieRepository.save(categorie);
     }
     @Override
     public List<Produit> findAllProduits(){
@@ -42,6 +53,9 @@ public class ProduitServiceImpl implements ProduitService{
     public Categorie saveCategorie(Categorie c) {
         return categorieRepository.save(c);
     }
+    @Override
+    public Boutique saveBoutique(Boutique b) { return boutiqueRepository.save(b);
+    }
 
     @Override
     public Produit updateProduit(Produit p) {
@@ -50,6 +64,10 @@ public class ProduitServiceImpl implements ProduitService{
     @Override
     public Categorie updateCategorie(Categorie c) {
         return categorieRepository.save(c);
+    }
+    @Override
+    public Boutique updateBoutique(Boutique b) {
+        return boutiqueRepository.save(b);
     }
 
 

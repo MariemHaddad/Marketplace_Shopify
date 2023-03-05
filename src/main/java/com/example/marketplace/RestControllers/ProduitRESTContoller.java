@@ -1,5 +1,6 @@
 package com.example.marketplace.RestControllers;
 
+import com.example.marketplace.Entities.Boutique;
 import com.example.marketplace.Entities.Categorie;
 import com.example.marketplace.Entities.Produit;
 import com.example.marketplace.Services.ProduitService;
@@ -41,12 +42,22 @@ public class ProduitRESTContoller {
     public Categorie createCategorie (@RequestBody Categorie categorie) {
         return produitService.saveCategorie(categorie);
     }
+    @PostMapping("/CreateBou")
+    @ResponseBody
+    public Boutique createBoutique (@RequestBody Boutique boutique) {
+        return produitService.saveBoutique(boutique);
+    }
 
 
     @PutMapping("/Update/{idProduit}")
     @ResponseBody
     public Produit updateProduit(@RequestBody Produit produit,@PathParam("idProduit") Long idProduit) {
         return produitService.updateProduit(produit);
+    }
+    @PutMapping("/Update/{idbou}")
+    @ResponseBody
+    public Boutique updateBoutique(@RequestBody Boutique boutique,@PathParam("idbou") Long idbou) {
+        return produitService.updateBoutique(boutique);
     }
     @PutMapping("/UpdateCategorie/{idCategorie}")
     @ResponseBody
@@ -73,6 +84,11 @@ public class ProduitRESTContoller {
     public void assignProductToCategorie(@RequestBody Produit produit,@PathVariable("idCategorie") Long idCategorie )
     {
         produitService.affectprodtocat(produit, idCategorie);
+    }
+    @PostMapping("/addcattobou/{idbou}")
+    @ResponseBody
+    public void assignCategorieToBoutique(@RequestBody Categorie categorie,@PathVariable("idbou") Long idbou )
+    {
+        produitService.affectcattobou(categorie, idbou);
     }}
-
 
