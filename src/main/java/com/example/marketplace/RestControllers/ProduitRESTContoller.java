@@ -3,13 +3,16 @@ package com.example.marketplace.RestControllers;
 import com.example.marketplace.Entities.Boutique;
 import com.example.marketplace.Entities.Categorie;
 import com.example.marketplace.Entities.Produit;
+import com.example.marketplace.Repositories.ProduitRepository;
 import com.example.marketplace.Services.ProduitService;
 import com.example.marketplace.Services.ProduitServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -32,10 +35,12 @@ public class ProduitRESTContoller {
     ProduitServiceImpl produitServiceImpl;
 
 
+
+
     @PostMapping("/Create")
     @ResponseBody
-    public Produit createProduit(@RequestBody Produit produit) {
-        return produitService.saveProduit(produit);
+    public void createProduit(@RequestBody Produit produit) {
+        produitService.saveProduit(produit);
     }
     @PostMapping("/CreateCategorie")
     @ResponseBody
@@ -90,5 +95,10 @@ public class ProduitRESTContoller {
     public void assignCategorieToBoutique(@RequestBody Categorie categorie,@PathVariable("idbou") Long idbou )
     {
         produitService.affectcattobou(categorie, idbou);
-    }}
+    }
+   /* public List<Produit> filterProduit(double minPrixProduit,double maxPrixProduit){
+        List<Produit> allProduit= ProduitRepository.findAll();
+        List<Produit>filterProduit=allProduit.stream().filter(p->p.getPrixProduit()>=minPrixProduit&&p.getPrixProduit()<=maxPrixProduit).collect(Collectors.toList());
+        return filterProduit;
+    }*/}
 

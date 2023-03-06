@@ -17,9 +17,9 @@ public interface ProduitService {
     List<Categorie> findAllCategories();
 
 
+    //List<Produit> filterProduit(double minPrixProduit, double maxPrixProduit);
 
-
-    Produit saveProduit(Produit p);
+    void saveProduit(Produit p);
     Categorie saveCategorie(Categorie c);
     Boutique saveBoutique(Boutique b);
 
@@ -32,6 +32,7 @@ public interface ProduitService {
     void deleteProduit(Produit p);
 
     void deleteProduitById(Long idProduit);
+
 
 
 }

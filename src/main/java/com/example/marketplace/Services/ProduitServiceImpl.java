@@ -6,10 +6,14 @@ import com.example.marketplace.Entities.Produit;
 import com.example.marketplace.Repositories.BoutiqueRepository;
 import com.example.marketplace.Repositories.CategorieRepository;
 import com.example.marketplace.Repositories.ProduitRepository;
+import com.example.marketplace.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
-
+import org.springframework.mail.javamail.JavaMailSender;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ProduitServiceImpl implements ProduitService{
     @Autowired
@@ -18,6 +22,8 @@ public class ProduitServiceImpl implements ProduitService{
     CategorieRepository categorieRepository;
     @Autowired
     BoutiqueRepository boutiqueRepository;
+    @Autowired
+    JavaMailSender javaMailSender;
     @Override
     public void affectprodtocat(Produit produit,Long idCategorie) {
         Categorie categorie = categorieRepository.findById(idCategorie).orElse(null);
@@ -26,7 +32,7 @@ public class ProduitServiceImpl implements ProduitService{
         produitRepository.save(produit);
     }
     @Override
-    public void affectcattobou(Categorie categorie,Long idbou) {
+    public void affectcattobou(Categorie categorie, Long idbou) {
         Boutique boutique = boutiqueRepository.findById(idbou).orElse(null);
         categorie.setBoutique(boutique);
 
@@ -41,14 +47,31 @@ public class ProduitServiceImpl implements ProduitService{
     public List<Categorie> findAllCategories() {
         return (List<Categorie>) categorieRepository.findAll();
     }
-
-
+   /* @Override
+    public List<Produit> filterProduit(double minPrixProduit, double maxPrixProduit) {
+        List<Produit> allProduit = produitRepository.findAll();
+        List<Produit> filterProduit = allProduit.stream().filter(p -> p.getPrixProduit() >= minPrixProduit && p.getPrixProduit() <= maxPrixProduit).collect(Collectors.toList());
+        return filterProduit;
+    }
+*/
 
 
     @Override
-    public Produit saveProduit(Produit p) {
-        return produitRepository.save(p);
+    public void  saveProduit(Produit p) {
+         produitRepository.save(p);
+        this.sendEmail(p.getUser().getEmailUser(),"a new product has been added");
     }
+    public void sendEmail(String Recipient,String EmailMessage) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(Recipient);
+        message.setSubject("Post reported");
+        message.setText(EmailMessage);
+
+        javaMailSender.send(message);
+
+    }
+
+
     @Override
     public Categorie saveCategorie(Categorie c) {
         return categorieRepository.save(c);
@@ -82,8 +105,20 @@ public class ProduitServiceImpl implements ProduitService{
     public void deleteProduitById(Long idProduit) {
         produitRepository.deleteById(idProduit);
     }
+    @Autowired
+    private UserRepository userRepository;
+
+    /*public void sendNotification(User seller, Produit produit) {
+        List<User> usersToNotify = userRepository.findUsersByFollowedSellers(seller);
+        for (User user : usersToNotify) {
+            String message = String.format("Seller %s has added a new tool: %s", seller.getName(), tool.getName());
+            Notification notification = new Notification(user, message);
+            // Send notification using email, SMS, push notifications, etc.
+            // ...
+        }*/
+    }
 
 
 
 
-}
+
