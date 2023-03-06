@@ -68,7 +68,7 @@ public class ProduitServiceImpl implements ProduitService{
     public void sendEmail(String Recipient,String EmailMessage) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(Recipient);
-        message.setSubject("Post reported");
+        message.setSubject("Product added");
         message.setText(EmailMessage);
 
         javaMailSender.send(message);
