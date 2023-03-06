@@ -3,6 +3,7 @@ package com.example.marketplace.Services;
 import com.example.marketplace.Entities.Boutique;
 import com.example.marketplace.Entities.Categorie;
 import com.example.marketplace.Entities.Produit;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,8 +17,8 @@ public interface ProduitService {
     List<Produit> findAllProduits();
     List<Categorie> findAllCategories();
 
-
-    //List<Produit> filterProduit(double minPrixProduit, double maxPrixProduit);
+void addProd(Produit produit, MultipartFile image);
+    List<Produit> filterProduit(float minPrixProduit, float maxPrixProduit);
 
     void saveProduit(Produit p, Long id);
     Categorie saveCategorie(Categorie c);

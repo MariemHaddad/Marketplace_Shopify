@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,17 +50,27 @@ public class ProduitServiceImpl implements ProduitService{
     public List<Categorie> findAllCategories() {
         return (List<Categorie>) categorieRepository.findAll();
     }
-   /* @Override
-    public List<Produit> filterProduit(double minPrixProduit, double maxPrixProduit) {
-        List<Produit> allProduit = produitRepository.findAll();
+
+    @Override
+    public void addProd(Produit produit, MultipartFile image) {
+        if(!image.isEmpty()){
+        }
+    }
+
+    @Override
+    public List<Produit> filterProduit(float minPrixProduit, float maxPrixProduit) {
+        //List<Produit> allProduit = produitRepository.findAll();
+        List<Produit> allProduit= (List<Produit>) produitRepository.findAll();
         List<Produit> filterProduit = allProduit.stream().filter(p -> p.getPrixProduit() >= minPrixProduit && p.getPrixProduit() <= maxPrixProduit).collect(Collectors.toList());
         return filterProduit;
+
     }
-*/
+
 
 
     @Override
     public void  saveProduit(Produit p, Long id) {
+
         System.out.println(id);
         User u = userRepository.findById(id).orElse(null);
         p.setUser(u);
