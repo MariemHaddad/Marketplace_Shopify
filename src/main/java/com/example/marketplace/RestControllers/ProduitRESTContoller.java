@@ -37,10 +37,10 @@ public class ProduitRESTContoller {
 
 
 
-    @PostMapping("/Create")
+    @PostMapping("/Create/{iduser}")
     @ResponseBody
-    public void createProduit(@RequestBody Produit produit) {
-        produitService.saveProduit(produit);
+    public void createProduit(@RequestBody Produit produit, @PathVariable("iduser") Long id) {
+        produitService.saveProduit(produit, id);
     }
     @PostMapping("/CreateCategorie")
     @ResponseBody

@@ -19,7 +19,7 @@ public interface ProduitService {
 
     //List<Produit> filterProduit(double minPrixProduit, double maxPrixProduit);
 
-    void saveProduit(Produit p);
+    void saveProduit(Produit p, Long id);
     Categorie saveCategorie(Categorie c);
     Boutique saveBoutique(Boutique b);
 

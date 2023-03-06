@@ -46,9 +46,10 @@ public class User implements Serializable {
 
     @OneToOne
     private Cart cart;
+    /*
     @OneToOne
     private Adresse adresse;
-
+*/
     @OneToMany(cascade = CascadeType.ALL, mappedBy="user")
     private Set<Reclamation> reclamations;
 }

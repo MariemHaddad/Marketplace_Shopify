@@ -3,6 +3,7 @@ package com.example.marketplace.Services;
 import com.example.marketplace.Entities.Boutique;
 import com.example.marketplace.Entities.Categorie;
 import com.example.marketplace.Entities.Produit;
+import com.example.marketplace.Entities.User;
 import com.example.marketplace.Repositories.BoutiqueRepository;
 import com.example.marketplace.Repositories.CategorieRepository;
 import com.example.marketplace.Repositories.ProduitRepository;
@@ -57,9 +58,12 @@ public class ProduitServiceImpl implements ProduitService{
 
 
     @Override
-    public void  saveProduit(Produit p) {
-         produitRepository.save(p);
-        this.sendEmail(p.getUser().getEmailUser(),"a new product has been added");
+    public void  saveProduit(Produit p, Long id) {
+        System.out.println(id);
+        User u = userRepository.findById(id).orElse(null);
+        p.setUser(u);
+        produitRepository.save(p);
+        this.sendEmail(u.getEmailUser(),"a new product has been added");
     }
     public void sendEmail(String Recipient,String EmailMessage) {
         SimpleMailMessage message = new SimpleMailMessage();

@@ -18,12 +18,14 @@ public class Adresse implements Serializable {
     private String adresse1;
    /* @Column(name="adreese2")
     private String adresse2;*/
+
     @Column(name="ville")
     private String ville;
     @Column(name="codePostale")
     private String codePostale;
     @Column(name="pays")
     private String pays;
+    /*
     @OneToOne(mappedBy="adresse")
-    private User user;
+    private User user;*/
 }
