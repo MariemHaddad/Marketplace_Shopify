@@ -17,7 +17,7 @@ public interface ProduitService {
     List<Produit> findAllProduits();
     List<Categorie> findAllCategories();
 
-void addProd(Produit produit, MultipartFile image);
+//void addProd(Produit produit, MultipartFile image);
     List<Produit> filterProduit(float minPrixProduit, float maxPrixProduit);
 
     void saveProduit(Produit p, Long id);

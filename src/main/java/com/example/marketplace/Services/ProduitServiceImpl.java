@@ -51,18 +51,19 @@ public class ProduitServiceImpl implements ProduitService{
         return (List<Categorie>) categorieRepository.findAll();
     }
 
-    @Override
-    public void addProd(Produit produit, MultipartFile image) {
-        if(!image.isEmpty()){
-        }
-    }
+    //@Override
+    //public void addProd(Produit produit, MultipartFile image) {
+      //  if(!image.isEmpty()){
+        //}
+    //}
 
     @Override
     public List<Produit> filterProduit(float minPrixProduit, float maxPrixProduit) {
         //List<Produit> allProduit = produitRepository.findAll();
-        List<Produit> allProduit= (List<Produit>) produitRepository.findAll();
+        /*List<Produit> allProduit= (List<Produit>) produitRepository.findAll();
         List<Produit> filterProduit = allProduit.stream().filter(p -> p.getPrixProduit() >= minPrixProduit && p.getPrixProduit() <= maxPrixProduit).collect(Collectors.toList());
-        return filterProduit;
+        return filterProduit;*/
+        return produitRepository.findByPrixProduitBetween(minPrixProduit,maxPrixProduit);
 
     }
 

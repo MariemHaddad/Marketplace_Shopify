@@ -106,3 +106,4 @@ public class ProduitRESTContoller {
         return iActivityService.filterActivity(minPrice, maxPrice, minCapacity, maxCapacity,activityType);
     }*/
 
+//bilan periodique for the owners od the shops
