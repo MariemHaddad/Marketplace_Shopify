@@ -37,11 +37,9 @@ public class ProduitRESTContoller {
 
 
 
-    @PostMapping("/Create/{iduser}")
-    @ResponseBody
-    public void createProduit(@RequestBody Produit produit, @PathVariable("iduser") Long id) {
-        produitService.saveProduit(produit, id);
-    }
+
+
+
     @PostMapping("/CreateCategorie")
     @ResponseBody
     public Categorie createCategorie (@RequestBody Categorie categorie) {
@@ -84,11 +82,20 @@ public class ProduitRESTContoller {
     public List<Categorie> findAllCategories(){
         return produitServiceImpl.findAllCategories();
     }
-    @PostMapping("/addproducttocat/{idCategorie}")
+    @PostMapping("/addproducttocat/{idCategorie}/{idUser}")
     @ResponseBody
-    public void assignProductToCategorie(@RequestBody Produit produit,@PathVariable("idCategorie") Long idCategorie )
+    public void assignProductToCategorie(@RequestBody Produit produit,@PathVariable("idCategorie") Long idCategorie,@PathVariable("idUser") Long idUser )
     {
-        produitService.affectprodtocat(produit, idCategorie);
+        produitService.affectprodtocat(produit, idCategorie, idUser);
+    }
+    @GetMapping("/quantity/{quantity}")
+    public List<Produit> FindByQuantityLessThanEqual(@PathVariable ("quantity") int quantity) {
+        return produitService.findByQuantityLessThanEqual(quantity);
+    }
+
+    @GetMapping("/alert")
+    public String showAlert() {
+        return produitService.showAlert();
     }
     @PostMapping("/addcattobou/{idbou}")
     @ResponseBody

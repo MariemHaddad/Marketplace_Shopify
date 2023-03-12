@@ -10,10 +10,15 @@ import com.example.marketplace.Repositories.ProduitRepository;
 import com.example.marketplace.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,12 +32,33 @@ public class ProduitServiceImpl implements ProduitService{
     BoutiqueRepository boutiqueRepository;
     @Autowired
     JavaMailSender javaMailSender;
+    @Autowired
+    TemplateEngine  templateEngine;
     @Override
-    public void affectprodtocat(Produit produit,Long idCategorie) {
-        Categorie categorie = categorieRepository.findById(idCategorie).orElse(null);
-        produit.setCategorie(categorie);
+    public void affectprodtocat(Produit p,Long idCategorie, Long idUser) {
+        Categorie c = categorieRepository.findById(idCategorie).orElse(null);
+        p.setCategorie(c);
+        User u = userRepository.findById(idUser).orElse(null);
+        p.setUser(u);
+        produitRepository.save(p);
+        List<User> userList = (List<User>) userRepository.findAll();
+        for (User user : userList) {
+            sendEmail(user.getEmailUser(), c.getNomCat());
+        }
+    }
+    @Override
+    public List<Produit> findByQuantityLessThanEqual(int quantity) {
+        return produitRepository.findByQuantityLessThanEqual(quantity);
+    }
+@Override
+    public String showAlert() {
+        List<Produit> produits = produitRepository.findByQuantityLessThanEqual(2);
+        if (produits.size() > 0) {
 
-        produitRepository.save(produit);
+            return "ALERT: There are " + produits.size() + " product(s) with quantity less than or equal to 2";
+        } else {
+            return "No products found with quantity less than or equal to 2";
+        }
     }
     @Override
     public void affectcattobou(Categorie categorie, Long idbou) {
@@ -69,26 +95,27 @@ public class ProduitServiceImpl implements ProduitService{
 
 
 
-    @Override
-    public void  saveProduit(Produit p, Long id) {
 
-        System.out.println(id);
-        User u = userRepository.findById(id).orElse(null);
-        p.setUser(u);
-        produitRepository.save(p);
-        this.sendEmail(u.getEmailUser(),"a new product has been added");
+
+
+    public void sendEmail(String Recipient,String nomCat) {
+        try {
+            Context context = new Context();
+            context.setVariable("nomCat", nomCat);
+            String htmlContent = templateEngine.process("email", context);
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
+            helper.setTo(Recipient);
+            helper.setSubject("Product added");
+            helper.setText(htmlContent, true);
+
+            javaMailSender.send(message);
+
+        } catch (MessagingException e) {
+            System.out.println("error sending email:" + e.getMessage());
+        }
+
     }
-    public void sendEmail(String Recipient,String nomUser) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(Recipient);
-        message.setSubject("Product added");
-        message.setText("bonjour,"+ nomUser + "!\n\n ceci est un exemple de template.");
-
-        javaMailSender.send(message);
-
-    }
-
-
     @Override
     public Categorie saveCategorie(Categorie c) {
         return categorieRepository.save(c);

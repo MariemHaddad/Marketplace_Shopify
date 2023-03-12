@@ -22,8 +22,10 @@ public class Produit implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idProduit;
     private String nomProduit;
+    private int quantity;
     private Float prixProduit;
     private Date dateCreation;
+
 
     @Lob
     private byte[] image;

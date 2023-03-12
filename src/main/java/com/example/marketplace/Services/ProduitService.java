@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ProduitService {
 
-    void affectprodtocat(Produit produit, Long idCategorie);
+    void affectprodtocat(Produit produit, Long idCategorie, Long idUser);
 
 
     void affectcattobou(Categorie categorie, Long idbou);
@@ -20,7 +20,7 @@ public interface ProduitService {
 //void addProd(Produit produit, MultipartFile image);
     List<Produit> filterProduit(float minPrixProduit, float maxPrixProduit);
 
-    void saveProduit(Produit p, Long id);
+
     Categorie saveCategorie(Categorie c);
     Boutique saveBoutique(Boutique b);
 
@@ -28,7 +28,8 @@ public interface ProduitService {
     Categorie updateCategorie(Categorie c);
     Boutique updateBoutique(Boutique b);
 
-
+    String showAlert();
+    List<Produit> findByQuantityLessThanEqual(int quantity);
 
     void deleteProduit(Produit p);
 

@@ -11,4 +11,5 @@ public interface ProduitRepository extends CrudRepository<Produit, Long> {
 
     List<Produit> findByPrixProduitBetween(float a, float b);
 
+    List<Produit> findByQuantityLessThanEqual(int quantity);
 }
