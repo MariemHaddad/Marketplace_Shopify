@@ -78,11 +78,11 @@ public class ProduitServiceImpl implements ProduitService{
         produitRepository.save(p);
         this.sendEmail(u.getEmailUser(),"a new product has been added");
     }
-    public void sendEmail(String Recipient,String EmailMessage) {
+    public void sendEmail(String Recipient,String nomUser) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(Recipient);
         message.setSubject("Product added");
-        message.setText(EmailMessage);
+        message.setText("bonjour,"+ nomUser + "!\n\n ceci est un exemple de template.");
 
         javaMailSender.send(message);
 
