@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title><b>Product added</b></title>
+    <title><i style="color:darkcyan;">Product added</i></title>
     <style>
         body {
             background-color: blue;
-            font-family: Arial, sans-serif;
+            font-family:Arial ;
         }
         .center {
             text-align: center;
@@ -18,11 +18,11 @@
 </head>
 <body>
 <div class="center">
-    <img src="/src/main/resources/Images/Logo.png" alt="Logo" width="400px">
+         <img src="Images/Logo.png" alt="Logo" width="500px">
 </div>
-<p class="bold">Hello, a new product has been added in our store SHOPIFY</p>
-<p class="bold" th:text="'Category name: ' + ${nomCat}"></p>
-<p>It may catch your attention, you can consult our website now and don't miss the news.</p>
-<p class="bold" th:text="${#temporals.format(#temporals.createNow(), 'dd MMM yyyy')}"></p>
+<p><i style="color: darkcyan; font-family: Georgia; font-size: 25px;text-align: center; "> Hello,a new product has been added in our store <b>SHOPIFY</b></i></p>
+<p class="bold" style="border-style: solid;border-color: teal; background-color: darkcyan;color: white; border-width: thick;" th:text="'Category name: ' + ${nomCat}"></p>
+<p style="color:darkcyan;font-family: Georgia;font-size: 15px;">It may attract your attention, you can check our website right now and don't miss the news.</p>
+<p style="color:darkcyan; text-align: right;font-family: Georgia;" class="bold" th:text="${#temporals.format(#temporals.createNow(), 'dd MMM yyyy')}"></p>
 </body>
 </html>
