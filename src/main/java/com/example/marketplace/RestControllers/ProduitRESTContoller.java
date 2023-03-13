@@ -17,18 +17,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 public class ProduitRESTContoller {
-    // @Autowired
-    //CategorieRepository categorieRepository;
-    // @RequestMapping(method= RequestMethod.GET)
-    //public List<Categorie> getAllCategories()
-    //{
-    //  return categorieRepository.findAll();
-    //}
-    //@RequestMapping(value="/{id}",method = RequestMethod.GET)
-    //public Categorie getCategorieById(@PathVariable("id") Long id) {
-    //  return categorieRepository.findById(id).get();
-    //}
-
     @Autowired
     ProduitService produitService;
     @Autowired
@@ -103,14 +91,11 @@ public class ProduitRESTContoller {
     {
         produitService.affectcattobou(categorie, idbou);
     }
-@GetMapping("/filter/{minPrixProduit}/{maxPrixProduit}")
+    @GetMapping("/filter/{minPrixProduit}/{maxPrixProduit}")
     public List<Produit> filterProduit(@PathVariable ("minPrixProduit")float minPrixProduit, @PathVariable ("maxPrixProduit")float maxPrixProduit) {
         return produitService.filterProduit(minPrixProduit, maxPrixProduit);
     }
 }
-/*@GetMapping("filter/{minP}/{maxP}/{minC}/{maxC}/{type}")
-    public List<Activity> filterActivity(@PathVariable("minP") double minPrice, @PathVariable("maxP") double maxPrice, @PathVariable("minC") int minCapacity, @PathVariable("maxC") int maxCapacity,@PathVariable("type") ActivityType activityType) {
-        return iActivityService.filterActivity(minPrice, maxPrice, minCapacity, maxCapacity,activityType);
-    }*/
 
-//bilan periodique for the owners od the shops
+
+

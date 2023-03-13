@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.Set;
 
@@ -16,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Order implements Serializable {
+public class Commande implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @GeneratedValue(strategy= GenerationType.IDENTITY)

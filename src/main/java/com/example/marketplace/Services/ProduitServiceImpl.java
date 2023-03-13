@@ -20,6 +20,7 @@ import org.thymeleaf.context.Context;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,6 +46,24 @@ public class ProduitServiceImpl implements ProduitService{
         for (User user : userList) {
             sendEmail(user.getEmailUser(), c.getNomCat());
         }
+    }
+    public void sendEmail(String Recipient,String nomCat) {
+        try {
+            Context context = new Context();
+            context.setVariable("nomCat", nomCat);
+            String htmlContent = templateEngine.process("email", context);
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
+            helper.setTo(Recipient);
+            helper.setSubject("Product added");
+            helper.setText(htmlContent, true);
+
+            javaMailSender.send(message);
+
+        } catch (MessagingException e) {
+            System.out.println("error sending email:" + e.getMessage());
+        }
+
     }
     @Override
     public List<Produit> findByQuantityLessThanEqual(int quantity) {
@@ -85,37 +104,15 @@ public class ProduitServiceImpl implements ProduitService{
 
     @Override
     public List<Produit> filterProduit(float minPrixProduit, float maxPrixProduit) {
-        //List<Produit> allProduit = produitRepository.findAll();
-        /*List<Produit> allProduit= (List<Produit>) produitRepository.findAll();
+        List<Produit> allProduit = (List<Produit>) produitRepository.findAll();
+
         List<Produit> filterProduit = allProduit.stream().filter(p -> p.getPrixProduit() >= minPrixProduit && p.getPrixProduit() <= maxPrixProduit).collect(Collectors.toList());
-        return filterProduit;*/
-        return produitRepository.findByPrixProduitBetween(minPrixProduit,maxPrixProduit);
+        return filterProduit;
 
     }
 
 
 
-
-
-
-    public void sendEmail(String Recipient,String nomCat) {
-        try {
-            Context context = new Context();
-            context.setVariable("nomCat", nomCat);
-            String htmlContent = templateEngine.process("email", context);
-            MimeMessage message = javaMailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
-            helper.setTo(Recipient);
-            helper.setSubject("Product added");
-            helper.setText(htmlContent, true);
-
-            javaMailSender.send(message);
-
-        } catch (MessagingException e) {
-            System.out.println("error sending email:" + e.getMessage());
-        }
-
-    }
     @Override
     public Categorie saveCategorie(Categorie c) {
         return categorieRepository.save(c);
