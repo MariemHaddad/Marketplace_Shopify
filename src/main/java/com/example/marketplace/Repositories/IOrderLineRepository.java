@@ -1,4 +1,10 @@
 package com.example.marketplace.Repositories;
 
-public interface IOrderLineRepository {
+import com.example.marketplace.Entities.OrderLine;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+
+public interface IOrderLineRepository extends CrudRepository<OrderLine,Long> {
 }

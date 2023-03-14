@@ -1,26 +1,35 @@
 package com.example.marketplace.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
-public class Order {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Commande {
     private static final long serialVersionUID = 1L;
 
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Id
-    private Long idOrder;
+    private Long idCommande;
     @Temporal(TemporalType.DATE)
-    private Date dateOrder;
+    private Date dateCommande;
     //private int ProductId;
     //private string ProductName;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus=OrderStatus.NEW;
-
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     private Set<OrderLine> orderLines;
 
@@ -49,10 +58,12 @@ public class Order {
 
     // relation avec facture one to one
     @OneToOne
+    @JsonIgnore
     private Facture facture;
 
     // relation avec User Many Orders to one user
     @ManyToOne
+    @JsonIgnore
     User user;
 
 

@@ -8,9 +8,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Adresse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idAdresse;
     @Column(name="adreese1")
     private String adresse1;
     @Column(name="adreese2")
